@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
@@ -32,7 +33,16 @@ public class Builder : MonoBehaviour
 
 		if (summary.result == BuildResult.Failed)
 		{
-			Debug.Log("[Build] Android Failed");
+			Debug.LogException(new Exception("[Build] Android Failed! Please Check the log! "));
+		}
+		
+		if (File.Exists(outputPath))
+		{
+			Debug.Log("[Build] Android CheckFileExist Success: path: " + outputPath);
+		}
+		else
+		{
+			Debug.LogException(new Exception("[Build] Android CheckFileExist Fail! Please Check the log! "));
 		}
 	}
 	
@@ -60,7 +70,7 @@ public class Builder : MonoBehaviour
 
 		if (summary.result == BuildResult.Failed)
 		{
-			Debug.Log("[Build] iOS Failed");
+			Debug.LogException(new Exception("[Build] iOS Fail! Please Check the log! "));
 		}
 	}
 }
