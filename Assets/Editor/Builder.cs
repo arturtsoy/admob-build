@@ -26,6 +26,8 @@ public class Builder : MonoBehaviour
 		BuildReport report = BuildPipeline.BuildPlayer(buildPlayerOptions);
 		BuildSummary summary = report.summary;
 
+		Debug.LogFormat("[Build] Android Finish. Report: summary: {0}, errors: {1}", report.summary.result, report.summary.totalErrors);
+		
 		if (summary.result == BuildResult.Succeeded)
 		{
 			Debug.Log("[Build] Android Success: path: " + summary.outputPath + ", size: " + (summary.totalSize/1000f) + " Kb");
@@ -35,15 +37,6 @@ public class Builder : MonoBehaviour
 		{
 			Debug.LogException(new Exception("[Build] Android Failed! Please Check the log! "));
 		}
-		
-		if (File.Exists(outputPath))
-		{
-			Debug.Log("[Build] Android CheckFileExist Success: path: " + outputPath);
-		}
-		else
-		{
-			Debug.LogException(new Exception("[Build] Android CheckFileExist Fail! Please Check the log! "));
-		}
 	}
 	
 	[MenuItem("Build/Build iOS")]
@@ -52,7 +45,7 @@ public class Builder : MonoBehaviour
 		Debug.Log("[Build] iOS Starting..");
 
 		var outdir = System.Environment.CurrentDirectory + "/BuildOutPutPath/";
-		var outputPath = Path.Combine(outdir, string.Format("Android/{0}-{1}({2}).apk", Application.productName, Application.version, PlayerSettings.Android.bundleVersionCode));
+		var outputPath = Path.Combine(outdir, string.Format("iOS/{0}-{1}({2})", Application.productName, Application.version, PlayerSettings.Android.bundleVersionCode));
 		
 		BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions();
 		buildPlayerOptions.scenes = new[] { "Assets/Scenes/MainScene.unity"};
@@ -63,6 +56,8 @@ public class Builder : MonoBehaviour
 		BuildReport report = BuildPipeline.BuildPlayer(buildPlayerOptions);
 		BuildSummary summary = report.summary;
 
+		Debug.Log("[Build] iOS Finish. Report: " + report);
+		
 		if (summary.result == BuildResult.Succeeded)
 		{
 			Debug.Log("[Build] iOS Success: path: " + summary.outputPath + ", size: " + (summary.totalSize/1000f) + " Kb");
@@ -70,7 +65,7 @@ public class Builder : MonoBehaviour
 
 		if (summary.result == BuildResult.Failed)
 		{
-			Debug.LogException(new Exception("[Build] iOS Fail! Please Check the log! "));
+			Debug.LogException(new Exception("[Build] iOS Failed! Please Check the log! "));
 		}
 	}
 }
