@@ -1,3 +1,4 @@
+using System.IO;
 using UnityEditor;
 using UnityEngine;
 using UnityEditor.Build.Reporting;
@@ -6,12 +7,18 @@ using UnityEditor.Build.Reporting;
 
 public class Builder : MonoBehaviour
 {
+	
 	[MenuItem("Build/Build Android")]
 	public static void BuildAndroid()
 	{
+		Debug.Log("[Build] Android Starting..");
+		
+		var outdir = System.Environment.CurrentDirectory + "/BuildOutPutPath/";
+		var outputPath = Path.Combine(outdir, string.Format("Android/{0}-{1}({2}).apk", Application.productName, Application.version, PlayerSettings.Android.bundleVersionCode));
+
 		BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions();
 		buildPlayerOptions.scenes = new[] { "Assets/samples/HelloWorld/Assets/Scenes/MainScene.unity"};
-		buildPlayerOptions.locationPathName = "_bin/Builder/Android/admob-demo-builder-1.apk";
+		buildPlayerOptions.locationPathName = outputPath;
 		buildPlayerOptions.target = BuildTarget.Android;
 		buildPlayerOptions.options = BuildOptions.None;
 
@@ -20,21 +27,26 @@ public class Builder : MonoBehaviour
 
 		if (summary.result == BuildResult.Succeeded)
 		{
-			Debug.Log("Build Android succeeded: " + summary.totalSize + " bytes");
+			Debug.Log("[Build] Android Success: path: " + summary.outputPath + ", size: " + (summary.totalSize/1000f) + " Kb");
 		}
 
 		if (summary.result == BuildResult.Failed)
 		{
-			Debug.Log("Build Android failed");
+			Debug.Log("[Build] Android Failed");
 		}
 	}
 	
 	[MenuItem("Build/Build iOS")]
 	public static void BuildIOS()
 	{
+		Debug.Log("[Build] iOS Starting..");
+
+		var outdir = System.Environment.CurrentDirectory + "/BuildOutPutPath/";
+		var outputPath = Path.Combine(outdir, string.Format("Android/{0}-{1}({2}).apk", Application.productName, Application.version, PlayerSettings.Android.bundleVersionCode));
+		
 		BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions();
 		buildPlayerOptions.scenes = new[] { "Assets/samples/HelloWorld/Assets/Scenes/MainScene.unity"};
-		buildPlayerOptions.locationPathName = "_bin/Builder/iOS/admob-demo-builder-1";
+		buildPlayerOptions.locationPathName = outputPath;
 		buildPlayerOptions.target = BuildTarget.iOS;
 		buildPlayerOptions.options = BuildOptions.None;
 
@@ -43,12 +55,12 @@ public class Builder : MonoBehaviour
 
 		if (summary.result == BuildResult.Succeeded)
 		{
-			Debug.Log("Build iOS succeeded: " + summary.totalSize + " bytes");
+			Debug.Log("[Build] iOS Success: path: " + summary.outputPath + ", size: " + (summary.totalSize/1000f) + " Kb");
 		}
 
 		if (summary.result == BuildResult.Failed)
 		{
-			Debug.Log("Build iOS failed");
+			Debug.Log("[Build] iOS Failed");
 		}
 	}
 }
