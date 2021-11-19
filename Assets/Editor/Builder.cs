@@ -18,7 +18,7 @@ public class Builder : MonoBehaviour
 		var outputPath = Path.Combine(outdir, string.Format("Android/{0}-{1}({2}).apk", Application.productName, Application.version, PlayerSettings.Android.bundleVersionCode));
 
 		BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions();
-		buildPlayerOptions.scenes = new[] { "Assets/samples/HelloWorld/Assets/Scenes/MainScene.unity"};
+		buildPlayerOptions.scenes = new[] { "Assets/Scenes/MainScene.unity"};
 		buildPlayerOptions.locationPathName = outputPath;
 		buildPlayerOptions.target = BuildTarget.Android;
 		buildPlayerOptions.options = BuildOptions.None;
@@ -55,7 +55,7 @@ public class Builder : MonoBehaviour
 		var outputPath = Path.Combine(outdir, string.Format("Android/{0}-{1}({2}).apk", Application.productName, Application.version, PlayerSettings.Android.bundleVersionCode));
 		
 		BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions();
-		buildPlayerOptions.scenes = new[] { "Assets/samples/HelloWorld/Assets/Scenes/MainScene.unity"};
+		buildPlayerOptions.scenes = new[] { "Assets/Scenes/MainScene.unity"};
 		buildPlayerOptions.locationPathName = outputPath;
 		buildPlayerOptions.target = BuildTarget.iOS;
 		buildPlayerOptions.options = BuildOptions.None;
