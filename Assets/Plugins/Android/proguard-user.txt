@@ -1,0 +1,52 @@
+# Facebook
+-keep class com.facebook.** { *; }
+-dontwarn com.facebook.devicerequests**
+
+# GameService Rules
+-keep class com.google.android.ads.** { *; }
+-keep class com.google.unity.** { *; }
+-keep class com.google.games.** { *; }
+-keep class com.google.android.gms.** { *; }
+
+-dontwarn com.unity3d.player.UnityPlayerNativeActivity
+-keep class com.unity3d.player.** { *; }
+
+# Consent SDK
+-keep class com.carx.consent.** { *; }
+-keep class com.google.ads.consent.** { *; }
+
+# Flurry
+-keep class com.flurry.** { *; }
+-dontwarn com.flurry.**
+-keepattributes *Annotation*,EnclosingMethod,Signature
+
+# Firebase
+-dontwarn com.google.firebase.**
+-keep class com.google.firebase.** { *; }
+-keep class com.crashlytics.** { *; }
+
+# Solution from http://qaru.site/questions/13664026/crashlytics-unity-plugin-export-to-android-studio
+-keepattributes *Annotation*
+-keepattributes SourceFile,LineNumberTable
+-keep public class * extends java.lang.Exception
+-keep class libcore.io.** { *; }
+-dontwarn com.crashlytics.**
+
+-dontwarn com.google.unity.GoogleUnityActivity
+-keep class com.google.unity.GoogleUnityActivity { *; }
+
+# Google Play Core - In App Review and other
+-keep class com.google.android.play.core.** { *; }
+
+# Huawei AppGalley
+-keep class com.hianalytics.android.**{*;}
+-keep class com.huawei.updatesdk.**{*;}
+-keep class com.huawei.hms.**{*;}
+-keep class com.huawei.hmf.**{*;}
+-keep class org.m0skit0.android.hms.**{*;}
+
+# Unity Mobile Notifications
+-keep class com.unity.androidnotifications.** { *;}
+-keepclassmembers class com.unity.androidnotifications.** { *;}
+-keepnames class com.unity.androidnotifications.** { *;}
+-keepclassmembernames class com.unity.androidnotifications.** { *;}
